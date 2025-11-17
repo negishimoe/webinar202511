@@ -150,7 +150,7 @@ form.addEventListener('submit', (event) => {
   }
 
   const { areaScores, languageScores, languageReasons, studyHours } = calculateScores(answers);
-  renderResult(areaScores, languageScores, languageReasons, studyHours);
+  renderResult(areaScores, languageScores, languageReasons, studyHours, answers.ability);
 });
 
 function calculateScores(answers) {
@@ -227,7 +227,7 @@ function getLanguageKeysForArea(area) {
     .map(([lang]) => lang);
 }
 
-function renderResult(areaScores, languageScores, languageReasons, studyHours) {
+function renderResult(areaScores, languageScores, languageReasons, studyHours, ability) {
   const sortedAreas = Object.entries(areaScores).sort((a, b) => b[1] - a[1]);
   const topArea = sortedAreas[0]?.[0];
 
@@ -261,7 +261,7 @@ function renderResult(areaScores, languageScores, languageReasons, studyHours) {
     })
     .join('');
 
-  const courseHtml = getCourseRecommendation(recommendedLanguages.map(([lang]) => lang));
+  const courseHtml = getCourseRecommendation(recommendedLanguages.map(([lang]) => lang), ability);
 
   resultCard.innerHTML = `
     <div class="recommendations">
@@ -272,6 +272,7 @@ function renderResult(areaScores, languageScores, languageReasons, studyHours) {
       </div>
       ${courseHtml}
       <p class="study">推奨時間：${studyHours}</p>
+      <p class="note">※こちらの結果はあくまで目安です。詳細はぜひRUNTEQの無料カウンセリングでご相談ください。</p>
     </div>
   `;
 }
@@ -295,7 +296,16 @@ function enforceBackendLimit(languageList) {
   });
 }
 
-function getCourseRecommendation(languageKeys) {
+function getCourseRecommendation(languageKeys, ability) {
+  if (ability === 'automationAbility' || ability === 'data') {
+    return `
+      <div class="course-card">
+        <h4>RUNTEQおすすめコース</h4>
+        <p>Python×AIコース</p>
+      </div>
+    `;
+  }
+
   const courseMap = [
     { key: 'ruby', name: 'Web開発スタンダードコース' },
     { key: 'python', name: 'Python×AIコース' }
@@ -316,6 +326,7 @@ function getCourseRecommendation(languageKeys) {
 const calendarContainer = document.getElementById('calendar');
 const scheduleForm = document.getElementById('scheduleForm');
 const totalHoursEl = document.getElementById('totalHours');
+const autoScheduleButton = document.getElementById('autoSchedule');
 const days = [
   { key: 'monday', label: '月曜日' },
   { key: 'tuesday', label: '火曜日' },
@@ -337,6 +348,16 @@ const scheduleState = days.reduce((acc, day) => {
   return acc;
 }, {});
 
+const recommendedPlan = [
+  { day: 'monday', slots: ['19:00-20:00', '20:00-21:00'] },
+  { day: 'tuesday', slots: ['19:00-20:00', '20:00-21:00'] },
+  { day: 'wednesday', slots: ['19:00-20:00', '20:00-21:00'] },
+  { day: 'thursday', slots: ['19:00-20:00', '20:00-21:00'] },
+  { day: 'friday', slots: ['19:00-20:00', '20:00-21:00'] },
+  { day: 'saturday', slots: ['10:00-11:00', '11:00-12:00', '13:00-14:00'] },
+  { day: 'sunday', slots: ['10:00-11:00', '11:00-12:00'] }
+];
+
 scheduleForm?.addEventListener('submit', (event) => {
   event.preventDefault();
   const formData = new FormData(scheduleForm);
@@ -348,19 +369,18 @@ scheduleForm?.addEventListener('submit', (event) => {
     return;
   }
 
-  const orderIndex = timeSlots.indexOf(timeSlot);
-  const time = timeSlot;
-
-  scheduleState[day].push({
-    id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
-    time,
-    topic,
-    orderIndex: orderIndex === -1 ? 999 : orderIndex
-  });
+  scheduleState[day].push(createEntry(timeSlot, topic));
 
   renderCalendar();
   updateTotalHours();
   scheduleForm.reset();
+});
+
+autoScheduleButton?.addEventListener('click', () => {
+  applyRecommendedSchedule();
+  renderCalendar();
+  updateTotalHours();
+  scheduleForm?.reset();
 });
 
 calendarContainer?.addEventListener('click', (event) => {
@@ -387,10 +407,13 @@ function renderCalendar() {
         ? entries
             .map(
               (entry) => `
-          <div class="schedule-item" data-entry="${entry.id}">
+          <div class="schedule-item ${entry.isRecommended ? 'recommended' : ''}" data-entry="${entry.id}">
             <button type="button" data-remove data-day="${day.key}" data-id="${entry.id}" aria-label="削除">×</button>
-            <strong>${entry.time}</strong>
-            <p>${entry.topic}</p>
+            <div class="time-row">
+              <strong>${entry.time}</strong>
+              ${entry.isRecommended ? '<span class="badge">推奨</span>' : ''}
+            </div>
+            ${entry.topic ? `<p>${entry.topic}</p>` : ''}
           </div>
         `
             )
@@ -431,6 +454,30 @@ function calculateWeeklyHours() {
   });
 
   return Math.round(totalMinutes / 60);
+}
+
+function applyRecommendedSchedule() {
+  // 上書きするので一度クリア
+  Object.keys(scheduleState).forEach((key) => {
+    scheduleState[key] = [];
+  });
+
+  recommendedPlan.forEach((plan) => {
+    plan.slots.forEach((slot) => {
+      scheduleState[plan.day].push(createEntry(slot, '', true));
+    });
+  });
+}
+
+function createEntry(timeSlot, topic = '', isRecommended = false) {
+  const orderIndex = timeSlots.indexOf(timeSlot);
+  return {
+    id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    time: timeSlot,
+    topic,
+    orderIndex: orderIndex === -1 ? 999 : orderIndex,
+    isRecommended
+  };
 }
 
 renderCalendar();
