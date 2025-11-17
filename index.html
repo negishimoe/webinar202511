@@ -1,0 +1,135 @@
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>プログラミング学習ナビ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>プログラミング学習ナビ</h1>
+    <p>質問に答えて、あなたにぴったりのプログラミング言語と学習スケジュールを確認しましょう。</p>
+  </header>
+
+  <main>
+    <section id="questionnaire">
+      <h2>当てはまるものをお選びください</h2>
+      <form id="questionForm">
+        <fieldset>
+          <legend>なぜプログラミングを学ぼうと思いましたか？ <span class="required">*</span></legend>
+          <label><input type="radio" name="motivation" value="engineer"> エンジニアに転職/就職したい</label>
+          <label><input type="radio" name="motivation" value="it"> エンジニア問わず、IT業界全般へ転職/就職をしたい</label>
+          <label><input type="radio" name="motivation" value="automation"> 社内の業務を自動化したい</label>
+          <label><input type="radio" name="motivation" value="side"> 副業をしたい</label>
+          <label><input type="radio" name="motivation" value="hobby"> 趣味でつくりたいものがある</label>
+        </fieldset>
+
+        <fieldset>
+          <legend>プログラミングを学んで叶えたいことはなんですか？ <span class="required">*</span></legend>
+          <label><input type="radio" name="goal" value="freedom"> 場所や時間に縛られない自由な働き方</label>
+          <label><input type="radio" name="goal" value="career"> キャリアの選択肢を広げたい</label>
+          <label><input type="radio" name="goal" value="salary"> 給料や年収を上げたい</label>
+          <label><input type="radio" name="goal" value="skill"> スキルをしっかり身につけて、それを使える仕事がしたい</label>
+          <label><input type="radio" name="goal" value="joy"> やりがいや楽しさを感じたい</label>
+        </fieldset>
+
+        <fieldset>
+          <legend>なにができるようになりたいですか？ <span class="required">*</span></legend>
+          <label><input type="radio" name="ability" value="homepage"> ホームページ作成</label>
+          <label><input type="radio" name="ability" value="webservice"> Webサービス開発</label>
+          <label><input type="radio" name="ability" value="automationAbility"> 業務効率化・自動化</label>
+          <label><input type="radio" name="ability" value="ai"> 生成AIを活用した開発</label>
+          <label><input type="radio" name="ability" value="data"> データ分析</label>
+        </fieldset>
+
+        <fieldset>
+          <legend>プログラミングの学習経験はありますか？ <span class="required">*</span></legend>
+          <label><input type="radio" name="experience" value="none"> まったくない</label>
+          <label><input type="radio" name="experience" value="little"> 少し触れた/ている</label>
+          <label><input type="radio" name="experience" value="self"> 書籍や動画教材で独学していた/している</label>
+          <label><input type="radio" name="experience" value="built"> 自分でサイトやアプリ・ツールを作ったことがある</label>
+          <label><input type="radio" name="experience" value="pro"> プログラミングの業務経験がある</label>
+        </fieldset>
+
+        <button type="submit" class="primary">結果を見る</button>
+      </form>
+    </section>
+
+    <section id="results" aria-live="polite">
+      <h2>おすすめ結果</h2>
+      <div id="languageResults" class="card">
+        <p>質問に回答すると、おすすめの領域と学習言語が表示されます。</p>
+      </div>
+    </section>
+
+    <section id="schedule">
+      <h2>1週間の学習スケジュール</h2>
+      <p class="note">このスケジュールはブラウザに保存されません。再読み込みすると消えてしまうのでご注意ください。</p>
+      <p class="note simulation">1週間の学習をシミュレーションしてみましょう。</p>
+      <form id="scheduleForm" class="schedule-controls">
+        <label>
+          日付（曜日）
+          <select name="day" required>
+            <option value="monday">月</option>
+            <option value="tuesday">火</option>
+            <option value="wednesday">水</option>
+            <option value="thursday">木</option>
+            <option value="friday">金</option>
+            <option value="saturday">土</option>
+            <option value="sunday">日</option>
+          </select>
+        </label>
+        <label>
+          時間帯
+          <select name="timeSlot" required>
+            <option value="00:00-01:00">00:00-01:00</option>
+            <option value="01:00-02:00">01:00-02:00</option>
+            <option value="02:00-03:00">02:00-03:00</option>
+            <option value="03:00-04:00">03:00-04:00</option>
+            <option value="04:00-05:00">04:00-05:00</option>
+            <option value="05:00-06:00">05:00-06:00</option>
+            <option value="06:00-07:00">06:00-07:00</option>
+            <option value="07:00-08:00">07:00-08:00</option>
+            <option value="08:00-09:00">08:00-09:00</option>
+            <option value="09:00-10:00">09:00-10:00</option>
+            <option value="10:00-11:00">10:00-11:00</option>
+            <option value="11:00-12:00">11:00-12:00</option>
+            <option value="12:00-13:00">12:00-13:00</option>
+            <option value="13:00-14:00">13:00-14:00</option>
+            <option value="14:00-15:00">14:00-15:00</option>
+            <option value="15:00-16:00">15:00-16:00</option>
+            <option value="16:00-17:00">16:00-17:00</option>
+            <option value="17:00-18:00">17:00-18:00</option>
+            <option value="18:00-19:00">18:00-19:00</option>
+            <option value="19:00-20:00">19:00-20:00</option>
+            <option value="20:00-21:00">20:00-21:00</option>
+            <option value="21:00-22:00">21:00-22:00</option>
+            <option value="22:00-23:00">22:00-23:00</option>
+            <option value="23:00-24:00">23:00-24:00</option>
+          </select>
+        </label>
+        <label>
+          学習内容
+          <input type="text" name="topic" placeholder="例) Ruby基礎" required>
+        </label>
+        <button type="submit" class="primary">予定を追加</button>
+      </form>
+
+      <p id="totalHours" class="total-hours">合計学習時間：0時間</p>
+
+      <div id="calendar" class="calendar-grid" aria-live="polite">
+        <!-- カレンダー列はJSで生成 -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Learning Navigator</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

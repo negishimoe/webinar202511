@@ -1,0 +1,257 @@
+:root {
+  --primary: #6c63ff;
+  --primary-dark: #4b49c1;
+  --accent: #f7b733;
+  --bg: linear-gradient(135deg, #f2f5ff, #e3ecff);
+  --card: rgba(255, 255, 255, 0.92);
+  --border: #dfe4fb;
+  --text: #1e1f36;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', 'Hiragino Kaku Gothic ProN', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  line-height: 1.6;
+  min-height: 100vh;
+  padding-bottom: 2rem;
+}
+
+header,
+footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 10px 30px rgba(86, 94, 139, 0.15);
+  backdrop-filter: blur(8px);
+}
+
+main {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+section {
+  background: var(--card);
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 20px 40px rgba(53, 66, 119, 0.12);
+  backdrop-filter: blur(12px);
+}
+
+h1,
+h2,
+h3 {
+  margin-top: 0;
+  color: var(--primary-dark);
+}
+
+form fieldset {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 1rem;
+  border-radius: 18px;
+  margin-bottom: 1.2rem;
+  background: rgba(247, 248, 255, 0.8);
+}
+
+legend {
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+
+label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  background: #f7f8ff;
+  border: 1px solid transparent;
+  transition: border 0.2s ease, background 0.2s ease;
+}
+
+input[type='radio'] {
+  width: 1.2rem;
+  height: 1.2rem;
+  accent-color: var(--primary);
+}
+
+label:hover {
+  border-color: var(--primary);
+  background: #eef0ff;
+}
+
+button.primary {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.8rem 1.8rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  box-shadow: 0 12px 20px rgba(76, 83, 230, 0.3);
+}
+
+button.primary:hover {
+  background: var(--primary-dark);
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  min-height: 120px;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.required {
+  color: #e74c3c;
+}
+
+.recommendation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.recommend-card {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  padding: 1.2rem;
+  background: linear-gradient(135deg, #ffffff, #f4f7ff);
+  box-shadow: 0 15px 30px rgba(76, 83, 230, 0.12);
+}
+
+.recommend-card h4 {
+  margin: 0 0 0.5rem;
+  color: var(--primary-dark);
+}
+
+.recommend-card ul {
+  padding-left: 1.1rem;
+  margin: 0;
+}
+
+.lang-desc {
+  margin: 0 0 0.6rem;
+  font-size: 0.95rem;
+  color: #555b79;
+}
+
+.course-card {
+  margin-top: 1.4rem;
+  padding: 1rem 1.2rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: linear-gradient(135deg, #fff8e5, #fff3cc);
+  box-shadow: 0 12px 24px rgba(247, 183, 51, 0.18);
+}
+
+.course-card h4 {
+  margin: 0 0 0.3rem;
+  color: #b56a00;
+}
+
+.course-card p {
+  margin: 0;
+  font-weight: 600;
+  color: #8a5200;
+}
+
+.total-hours {
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin: 0.4rem 0 0.8rem;
+}
+
+.schedule-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  align-items: end;
+}
+
+.schedule-controls label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 10px;
+  background: #f1f3ff;
+  border: 1px solid transparent;
+}
+
+.schedule-controls input,
+.schedule-controls select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  border-radius: 8px;
+  border: 1px solid #d2d9ff;
+}
+
+.calendar-grid {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+.day-column {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 18px;
+  padding: 0.8rem;
+  min-height: 220px;
+  background: rgba(255, 255, 255, 0.85);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  box-shadow: 0 12px 25px rgba(54, 73, 161, 0.08);
+}
+
+.day-column h3 {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.schedule-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 0.6rem;
+  border: 1px solid #edf0ff;
+  position: relative;
+  box-shadow: 0 10px 20px rgba(30, 35, 90, 0.06);
+}
+
+.schedule-item button {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: transparent;
+  border: none;
+  color: #999;
+  cursor: pointer;
+}
+
+.note {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .calendar-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+}
